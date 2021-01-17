@@ -30,7 +30,7 @@ PLATFORMS
 
 DEPENDENCIES
   mechanize (~> 2.5.1)
-  nokogiri (~> 1.6, >= 1.6.7.rc3)
+  nokogiri (>= 1.10.8)
 
 BUNDLED WITH
    2.2.5
