@@ -1,0 +1,1 @@
+[Ruby基礎文法 - Qiita](https://qiita.com/Fendo181/items/eb2cb17f32d99aa01f59#%E5%A4%9A%E9%87%8D%E4%BB%A3%E5%85%A5)

@@ -399,3 +399,43 @@ puts book_bob.price
 puts book.title
 
 puts "================= クラスメソッド、クラス変数 ================="
+
+class User
+    
+    # @@がクラス変数
+    @@count = 0 # 初期化
+
+    def initialize(name)
+        @@count +=1
+        @name = name
+    end
+    
+    def sayHi
+        puts "Hi! I am #{@name}"
+    end
+
+    # クラスメソッド①
+    def self.sayHo
+        puts "Say Ho!"
+        puts "Count is #{@@count} insysyance"
+    end
+
+    # クラス定数①
+    VERSION = "これはクラス定数です" # これもクラウス外からアクセスできる
+end
+
+
+# インスタンスを使わずにメソッドを呼び出す
+tom = User.new("tom")
+bob = User.new("bob")
+steave = User.new("steave")
+
+# クラスメソッドの呼び出し
+# インスタンスなしに直接呼べる
+# 新しくインスタンスが作成されるたびに@@countがインクリメントされていく
+User.sayHo
+
+# クラス定数呼び出し
+puts User::VERSION # {class名}::{クラス定数}
+
+
