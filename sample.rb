@@ -438,4 +438,185 @@ User.sayHo
 # クラス定数呼び出し
 puts User::VERSION # {class名}::{クラス定数}
 
+puts "=========================== 継承クラス ==========================="
 
+# User:親クラス, SuperClass
+# AdminUser:子クラス, SubClass
+# 継承クラスは親クラスのメソッドを使える
+
+class User
+    
+    def initialize(name)
+        @name = name
+    end
+
+    def sayHi
+        puts "Hi! I am #{name}"
+    end
+    
+end
+
+class AdminUser < User
+
+    # 親クラスの変数@nameをそのまま使える
+    def sayHo
+        puts "ho! from #{@name}"
+    end
+
+    # 親クラスのメソッドを上書きするオーバーライド
+    def sayHi
+        puts "Hi! Yo!"
+    end
+    
+end
+
+# あくまで呼び出されているのは子クラス（継承のみ）
+# 従って、優先されるのは継承クラスでOverrideされたメソッドのみ
+
+tom = AdminUser.new("tom")
+
+tom.sayHi
+tom.sayHo
+
+puts "=================================== アクセス権 ==================================="
+# Ruby の private 指定は他の言語のオブジェクト指向プログラミングと動作が異なっていて、
+# Sub Class から呼び出せたり、オーバーライドすることができたりするので、十分注意して使う
+
+class User2
+
+    def sayHi
+        puts "hi1"
+        puts "ここは親クラス内のメソッドです"
+        sayPrivate
+        # 意味的にはself.sayPrivate    
+    end
+
+    private # クラス内なら使える
+    
+        def sayPrivate
+            puts "これはプライベートメソッドです"
+        end
+end
+
+class Admin < User2
+
+    def sayHo
+        puts "hello! これは継承クラス内のメソッドです！"
+        sayPrivate # class内から呼び出す
+    end
+
+    # なおかつ同名メソッドの上書きも可能になる
+
+    def sayPrivate
+        puts "privateメソッドをOverideした"
+        puts "private from Admin"
+        
+    end
+    
+end
+
+# User2.new.sayPrivate privateアクセス権がかかっているので、クラス内から呼び出さないとだめ
+
+
+User2.new.sayHi
+Admin.new.sayHo
+
+# Override 呼び出し
+Admin.new.sayPrivate
+
+
+puts "========================== モジュールで名前空間を使う =========================="
+
+
+module Movie
+    
+    VERSION = 1.1
+
+    # クラスメソッドのように書けば良い
+    def self.encode
+        puts "encoding"
+    end
+
+    def self.export
+        puts "exporting"
+    end
+
+end
+
+Movie.encode
+Movie.export
+
+puts Movie::VERSION
+
+# 別のモジュールを作る
+module Movie2
+
+    VERSION = 1.1
+
+    def self.encode
+        puts "encoding.........."
+    end
+
+    def self.export
+        puts "exporting........."
+    end
+    
+end
+
+Movie2.encode
+Movie2.export
+
+puts Movie2::VERSION
+
+puts "======================== ミックスイン（モジュールの応用） ========================"
+# 継承関係にない複数のクラスに共通の機能を提供する
+# 共通化したい機能を持つモジュールを作成して、それを入れたいclassでincludeする
+
+module Debug
+
+    def info
+        puts "#{self.class} debug" # selfはインスタンス自身、この場合はclass名になる
+    end
+
+end
+
+class Player
+    # ミックスイン
+    include Debug
+end
+
+class Monster
+    # ミックスイン
+    include Debug
+end
+
+Player.new.info
+Monster.new.info
+
+puts "============================== 例外処理 =============================="
+
+x = gets.to_i
+
+# 自分で例外クラスを作る
+class MyError < StandardError 
+end
+
+# p 100/x #0を入れるとErrorが発生する
+# 例外処理の書き方
+begin
+    if x == 3
+        raise MyError # 自分が作成した例外処理をさせる
+    end
+    p 100/x
+rescue MyError
+    puts "noy 3!" # 独自メッセージを作る
+
+rescue => ex # 発生した例外をexに入れる
+    p "エラメッセージ"+"#{ex.message}" # あらかじめ用意されたメッセージを表示する
+    p "エラー起こしたクラス"+"#{ex.class}" # このオブジェクトのクラス
+    puts "例外が"+"発生しました"
+    puts "stopped"
+
+ensure # 例外が発生使用がしまいが最後に実行したい処理
+    puts "__end__"
+end
