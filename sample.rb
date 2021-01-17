@@ -143,4 +143,33 @@ score = [[:taguchi,200],[:endo,300]]
 puts score
 puts score.class
 
-puts
+puts score.to_h
+puts score.to_h.to_a.class
+
+puts "\"\"で表現できる"
+puts %Q(""を書きたい時はQを使う)
+
+a = ["a","b","c"]
+p a
+b = %w(a b c)
+p b
+c = %W(a b c)
+
+apple = 'red'
+banana = 'Yellow'
+array = %W(#{apple} #{banana} PHP)
+p array
+array = %w(#{apple} #{banana} PHP)
+p array
+
+p "name: %s" % "taguchi"
+p "name: %10s" % "taguchi" # 10桁分の幅を開ける
+p "name: %-10s" % "taguchi"
+
+p "id: %05d, rate: %2.3f:" % [355,3101010100101.84]
+p "id: %05d, rate: %0.2f:" % [355,3101010100101.84]
+
+printf("name: %10s \n", "endo")
+printf("id:%05d, rate:%0100.2f \n", 355,3.284)
+
+p sprintf("id:%05d, rate:%010.2f \n" , 355,3.284)
