@@ -173,3 +173,111 @@ printf("name: %10s \n", "endo")
 printf("id:%05d, rate:%0100.2f \n", 355,3.284)
 
 p sprintf("id:%05d, rate:%010.2f \n" , 355,3.284)
+
+
+puts "--------------------------------"
+
+score = 80
+
+if score > 60
+    puts "ok"
+elsif score >40
+    puts "SOSO"
+else
+    puts "NG"
+end
+
+score = 100
+
+puts "okok" if score >60
+
+a = 10
+b = 20
+c = 10
+
+a= (b<c)?b:c
+puts a
+
+foo, bar = [1, 2]
+p foo, bar
+foo, bar = 10, 20
+p foo, bar
+
+foo, bar, baz = 1, 2
+p foo, bar, baz
+
+*foo = 1,2,3
+p foo
+foo = [1,2,3]
+p foo
+
+a = 1,2,3,4
+p a
+b,c = "apple", "banana"
+p b
+p c
+
+puts "------------------------"
+
+# signal = gets.chomp # コマンドラインから値を受け取る　chomp:最後の改行コードを取り除く
+
+# case signal
+# when "red" 
+#     puts "stop"
+# when "green", "blue"
+#     puts "go!"
+# when "yellow"
+#     puts "caution!"
+# else
+#     puts "wrong signal"
+# end
+
+puts "------------------------"
+
+# FizzBuzz問題
+i = 0
+
+31.times do |i| #-------------------------------
+
+    if (i%15==0 && i!=0)
+        puts "FizzBuzz"
+    elsif (i%3==0 && i!=0)
+        puts "Fizz"
+    elsif (i%5==0 && i!=0)
+        puts "Buzz"
+    else
+        puts "#{i}"
+    end
+    
+end #-------------------------------------------
+
+puts "--------------------------------"
+j=0
+10.times{ |j| puts "#{j}:Hello"}
+
+puts "--------------------------------"
+# while
+
+i = 0
+while i<20 
+    
+    i +=1
+    if i == 12
+        break
+    elsif i == 3
+        next
+    else 
+        puts "#{i} hello"
+    end
+end
+
+puts "--------------------------------"
+
+for i in 18..20 do
+    p i
+end
+
+for i in 18...20 do
+    p i
+end
+
