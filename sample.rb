@@ -281,3 +281,121 @@ for i in 18...20 do
     p i
 end
 
+for color in ["red","blue"] do
+    p color
+end
+
+for name, score in {taguchi:200,endo:400} do
+    puts "#{name}:--#{score}"
+end
+
+puts "--------------------------------"
+colors = ["red","blue", "yellow"]
+
+for color in colors do
+    p "color:#{color}"
+end
+
+p color # 外部からアクセスできる
+
+colors.each do |c|
+    p "color:#{c}"
+end
+
+p c # スコープ範囲外
+
+puts "-----------------------------"
+
+(18..20).each do |i|
+    p i
+end
+puts '____________________________'
+["red", "blue"].each do |color|
+    p color
+end
+
+{iwami:100, shota:200}.each do |name,score|
+    puts "#{name}:#{score}"
+end
+
+puts "-------------------------------"
+
+# メソッド
+def sayHi(name)
+    puts "#{name} Hi!"
+end
+
+sayHi("endo")
+
+def sayHi2(name = "endo")
+    puts "#{name} Hi!"
+end
+
+sayHi2()
+sayHi2("shota")
+
+puts "===================== class ====================="
+
+class User
+    # インスタンス時に呼ばれる処理　initializeはいつもの名前
+    def initialize(name)
+        @name = name # @name <- インスタンス変数 ここで外部からのnameをインスタンス内で使えるようにsる
+    end
+    # @name このインスタンスはクラス内どこでも利用できる
+    def sayHi
+        puts "Hi! I am #{@name}"
+    end
+end
+
+# インスタンスを作成する
+# tomはインスタンスオブジェクト
+tom = User.new("tom") # << インスタンスオブジェクトの作成
+tom.sayHi
+endo = User.new("endo")
+endo.sayHi
+
+puts "============================ アクセサメソッド ============================"
+# アクセサメソッド = ゲッター+セッター
+
+class Book # 必ずInitialは大文字
+
+    # アクセサメソッド
+    attr_accessor :title, :price
+
+    def initialize(title,price)
+        @title = title
+        @price = price
+    end
+
+    def sayPrice
+        puts "price is #{@price}"
+        # self = そのメソッドを受け取っているインスタンス自身をさす
+        puts "price is #{self.price}"
+        # ↑↓同じ
+        puts "price is #{price}"
+    end
+end
+
+book = Book.new("EndoBook", 2389)
+# アクセサメソッドのおかげ
+puts book.title
+puts "#{book.price}円"
+
+book.sayPrice
+
+# インスタンス変数の名前を変えずに値を変えたい
+book.title = "TakahashiBooks"
+book.price = "2050"
+
+puts book.title
+puts "#{book.price}円"
+book.sayPrice
+
+# 別の名前にしたい
+book_bob = Book.new("BobBobAdventure",1980)
+puts book_bob.title
+puts book_bob.price
+
+puts book.title
+
+puts "================= クラスメソッド、クラス変数 ================="
